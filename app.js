@@ -240,4 +240,50 @@ app.delete('/livros/:id', (req, res) =>{
 
 });
 
+app.get("/anime", async (req, res) => {
+  const page = req.query.id
+
+  const url = `https://api.jikan.moe/v4/anime/${page}`
+
+
+  try {
+
+      const resposta = await fetch(url)
+      const dados = await resposta.json()
+
+    const dados_para_retomar = {
+      titulo : dados.data.title,
+      duracao : dados.data.duration,
+      resumo : dados.data.synopsis
+    }
+    
+    res.status(200).json(dados_para_retomar)
+  } catch (error) {
+     res.status(502).json({ erro: 'Falha ao consultar serviço de anime' });
+  }
+})
+
+app.get("/enviar-email", async (req, res) => {
+  const page = req.query.id
+
+  const url = `https://api.jikan.moe/v4/anime/${page}`
+
+
+  try {
+
+      const resposta = await fetch(url)
+      const dados = await resposta.json()
+
+    const dados_para_retomar = {
+      titulo : dados.data.title,
+      duracao : dados.data.duration,
+      resumo : dados.data.synopsis
+    }
+    
+    res.status(200).json(dados_para_retomar)
+  } catch (error) {
+     res.status(502).json({ erro: 'Falha ao consultar serviço de anime' });
+  }
+})
+
 export default app;
